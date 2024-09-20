@@ -1,0 +1,26 @@
+{
+            "us": [
+                {
+                    "env": "dev",
+                    "release_name": "version1",
+                    "release_date": "date1"
+                },
+                {
+                    "env": "qa",
+                    "release_name": "version2",
+                    "release_date": "date2"
+                }
+            ],
+            "ca": [
+                {
+                    "env": "dev",
+                    "release_name": "version3",
+                    "release_date": "date1"
+                },
+                {
+                    "env": "qa",
+                    "release_name": "version4",
+                    "release_date": "date2"
+                }
+            ]
+        }
