@@ -1,0 +1,92 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    box-sizing: border-box;
+    box-shadow: #000408;
+    background: scroll steelblue;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.tiles {
+    background-color: lightgrey;
+    width: 300px;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    overflow-x: auto;
+}
+
+.tile {
+    width: 300px;
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-bottom: black;
+    border-top: black;
+    color: black;
+}
+
+.tile:hover {
+    background-color: #3159ea;
+    color: white
+}
+
+.tile.active {
+    background-color: #8c8e8d;
+    color: #fff;
+}
+
+.content {
+    flex: 2;
+    padding: 50px;
+    background-color: #fff;
+    color: black;
+
+}
+
+.location {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+th,
+td {
+    padding: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table th {
+    font-weight: bold;
+    color: #000408;
+    background-color: skyblue;
+    position: sticky;
+    background: #6c7ae0;
+    top: 0;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: white;
+}
+
+th:last-child {
+    border: 0;
+}
+
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #808080;
+}
+
+tr:nth-child(even) td {
+    background: #f8f6ff;
+}
