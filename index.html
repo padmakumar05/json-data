@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JSON Data Display</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS styles */
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-pane {
+            width: 300px;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+
+        .key-tile {
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 1s ease;
+        }
+
+        .key-tile.active {
+            background-color: #afa9e4;
+            border: 2px solid #007bff;
+        }
+
+        .key-tile.active-color {
+            background-color: #007bff;
+            color: #907bc2;
+        }
+
+        .right-pane {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .table {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            /* Initially hide the table */
+        }
+
+        .table th {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-pane">
+            <ul id="key-list" class="list-group">
+            </ul>
+        </div>
+        <div class="right-pane">
+            <table id="value-table" class="table table-bordered table-hover">
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const jsonDataUrl = 'https://raw.githubusercontent.com/padmakumar05/json-data/856e5307b4120d36e7a0ff7139ff9c327a601398/data.json'; // Replace with your actual URL
+
+        // Fetch JSON data from the remote URL
+        fetch(jsonDataUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Process the fetched data and update the UI
+                const keyList = document.getElementById('key-list');
+                const valueTable = document.getElementById('value-table');
+
+                // Create key list and initial table content
+                for (const key in data) {
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'key-tile');
+                    li.textContent = key;
+                    li.addEventListener('click', () => {
+                        updateTable(key, data);
+                    });
+                    keyList.appendChild(li);
+                }
+
+                // Function to update the table based on the selected key
+                function updateTable(key, jsonData) {
+                    const data = jsonData[key];
+                    const headers = Object.keys(data[0]);
+
+                    // Clear existing table content
+                    valueTable.innerHTML = '';
+
+                    // Create table header row
+                    const headerRow = document.createElement('tr');
+                    headers.forEach(header => {
+                        const th = document.createElement('th');
+                        th.scope
+                            = 'col';
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+                    valueTable.appendChild(headerRow);
+
+                    // Create table data rows
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        headers.forEach(header => {
+                            const td = document.createElement('td');
+                            td.textContent = item[header];
+                            row.appendChild(td);
+
+                        });
+                        valueTable.appendChild(row);
+                    });
+
+                    // Show or hide the table with animation
+                    valueTable.style.opacity = data.length > 0 ? '1' : '0';
+
+                    // Update active key and change color
+                    const activeKeys = document.querySelectorAll('.key-tile.active');
+                    activeKeys.forEach(key => key.classList.remove('active'));
+                    document.querySelector(`.key-tile:contains(${key})`).classList.add('active', 'active-color');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching JSON data:', error);
+            });
+    </script>
+</body>
+
+</html>
